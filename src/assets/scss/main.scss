@@ -1,0 +1,488 @@
+$serif: 'Merriweather', 'Big Caslon', 'Book Antiqua', 'Palatino Linotype', Georgia, serif;
+$sans-serif: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$nav-font: 'Roboto Condensed', sans-serif;
+
+$dark-font: #005a75;
+$light-font: #fff;
+
+$medium: 640px;
+$medium-large:840px;
+$large: 1024px;
+$xlarge: 1200px;
+$xxlarge: 1440px;
+
+@mixin md {
+  @media (min-width: #{$medium}) {
+    @content;
+  }
+}
+
+@mixin mdlg {
+  @media (min-width: #{$medium-large}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$large}) {
+    @content;
+  }
+}
+// Custom breakpoint
+@mixin custom($screen) {
+  @media (min-width: $screen+'px') {
+     @content;
+  }
+}
+
+//   ...............     |
+/* * * GLOBAL STYES * * */
+//   ...............     |
+
+
+// keeps from having to add padding to everysection on mobile
+// NOTE not sure what this was fixing ^^^ so I commented it out
+/*.medium-12.cell {
+  padding: 0 30px
+}*/
+
+.limit-width {
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+// LINKS
+a.plink {
+  text-decoration: underline;
+}
+
+// * * * HEADINGS * * *
+// ↓↓↓↓ This span makes the line beneath the SECTION HEADINGS * * *
+span.heading-line {
+  display: block;
+  margin: 0 auto;
+  width: 70px;
+  height: 5px;
+  background-color: $dark-font;
+  margin-bottom: 30px;
+}
+
+h1.section-heading {
+  color: $dark-font;
+  font-size: 32px;
+  font-family: $serif;
+  text-align: center;
+  margin: 20px 0px 10px;
+}
+
+// * * * Paragraph Styles * * *
+p {
+  font-family: $sans-serif;
+  font-weight: 500;
+}
+
+p.series-info {
+  font-family: $serif;
+  font-style: italic;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.37;
+  text-align: center;
+  text-shadow: -1.981px -0.278px 6px rgba(0, 0, 0, 0.48);
+  padding: 0 30px;
+
+    @include md {
+      font-size: 19px;
+      width: 550px;
+    }
+      @include custom(900) {
+        font-size: 23px;
+        width: 650px;
+      }
+        @include lg {
+          font-size: 25px;
+          width: 700px;
+        }
+}
+
+p.map-intro {
+  color: $dark-font;
+  text-align: center;
+
+    @include md {
+      font-size: 20px;
+    }
+      @include lg {
+        font-size: 23px;
+      }
+}
+
+header {
+  background: url(../img/home-header-bg-sml.jpg);
+  background-attachment: fixed;
+  background-position: top center;
+  background-clip: border-box ;
+  background-origin: padding-box;
+  //background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: normal;
+  height: 400px;
+
+    @include md {
+      height: 500px;
+      background-image: url(../img/home-header-bg-md.jpg);
+    }
+      @include custom(900) {
+        height: 700px;
+        background-image: url(../img/home-header-bg.jpg);
+      }
+        @include lg {
+          height: 790px;
+          background-image: url(../img/home-header-bg.jpg);
+        }
+}
+
+img.logo {
+  float: left;
+  width: 250px;
+
+    @include md {
+      padding-top: 20px;
+    }
+      @include custom(900) {
+        width: 300px;
+      }
+        @include lg {
+          width: 350px;
+          margin:0 auto;
+          float: none;
+        }
+}
+
+// HERO HEADER Navigation Container Styles
+.nav-container {
+  background: #fff;
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, .5) 0 5px 8px 0;
+
+    @include md {
+      background: none;
+      box-shadow: none;
+    }
+      @include lg {
+        margin: 0 auto;
+      }
+
+  .nav-bar {
+    height: 90px;
+    padding: 20px;
+
+      @include md {
+        padding: 0px 20px;
+      }
+        @include lg {
+          margin: 0 auto;
+          float: none;
+        }
+  }
+}
+
+// Menu Icon for Mobile Devices
+.mobile-menu {
+  float: right;
+}
+
+.menu-icon-lithi {
+  padding: 10px;
+}
+
+.menu-icon-lithi div {
+  position: relative;
+  width: 3em;
+  height: 5px;
+  border-radius: 3px;
+  background-color: $dark-font;
+  margin-top: 8px;
+  transition: all 0.3s ease-in-out;
+}
+// Menu Icon Animation
+#mobileNavMenu:checked + .menu-icon-lithi .menu-top-bar {
+  transform: rotate(-45deg);
+  margin-top: 25px;
+}
+#mobileNavMenu:checked + .menu-icon-lithi .menu-bottom-bar {
+  transform: rotate(45deg);
+  margin-top: -5px;
+}
+
+
+// Give the topbar nav area a max-width to not let any elements expand past 1020px
+
+#topbar-max {
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+
+
+// HERO HEADER STICKY NAV -
+// Controlls what the nav-bar elements looks like when it turns sticky.
+.nav-bar.is-stuck {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, .3) 0 5px 4px 0;
+
+    @include md {
+      transition-property: background-color, box-shadow;
+      transition-duration: 1.5s, 1.5s;
+      transition-delay: .5s, .5s;
+    }
+  img.logo {
+    @include custom(900){
+      width: 250px;
+      transition-property: width;
+      transition-duration: 1s;
+      transition-delay: .4s;
+    }
+  }
+  #main-nav {
+    a {
+      @include md {
+        color: $dark-font;
+        opacity: .8;
+        transition-property: color, opacity;
+        transition-duration: 1s, 1s;
+        transition-delay: .5s, .5s;
+      }
+    }
+
+    a:hover {
+      @include md {
+        color: $dark-font;
+        opacity: 1;
+        border-top: 3px solid $dark-font;
+        transition-property: color;
+        transition-duration: 1s;
+        transition-delay: 0s;
+      }
+    }
+    .active {
+      @include md {
+        color: $dark-font;
+        opacity: 1;
+        border-top: 3px solid $dark-font;
+        transition-property: color, border-top-color;
+        transition-delay: .4s;
+      }
+    }
+  }
+}
+
+// Controlls what the nav-bar does when it returns to top.
+.nav-bar.is-anchored {
+
+    @include md {
+      transition: background 1s ease;
+    }
+  img.logo {
+    @include custom(900){
+      transition-property: width;
+      transition-duration: 1.3s;
+      transition-delay: .2s;
+    }
+  }
+
+  a {
+    @include md {
+      transition: color .4s ease;
+    }
+  }
+
+}
+
+// HERO HEADER Navigation
+// Styles for Hero Header Nav
+nav {
+  position: absolute;
+  margin: 70px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div
+  padding:0;
+  height: auto;
+  width: 100%;
+  background-color: #fff;
+  z-index: -1;
+  box-shadow: rgba(0, 0, 0, .4) 0 5px 4px 0;
+
+    @include md {
+      position: static;
+      background: none;
+      box-shadow: none;
+      float: right;
+      margin: 0;
+      width: 345px;
+    }
+      @include custom(720) {
+        width: 430px;
+      }
+        @include custom(900) {
+          width: 550px;
+        }
+          @include lg {
+            width: 600px;
+          }
+
+  ul {
+    list-style-type: none;
+
+      @include md {
+        float: right;
+      }
+  }
+
+  li {
+    font-family: $nav-font;
+    font-size: 19px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+      @include md {
+        display: inline-block;
+        font-size: 16px;
+        padding:20px 5px;
+      }
+        @include custom(720) {
+          padding: 20px 15px;
+        }
+          @include custom(900) {
+            padding: 30px 20px;
+          }
+            @include custom(1030) {
+              font-size: 17px;
+              padding: 30px;
+            }
+
+    a {
+      color: $dark-font;
+      opacity: .8;
+      padding: 10px;
+
+        @include md {
+          opacity: .6;
+          color: $light-font;
+          padding: 20px 0;
+        }
+          @include custom(900) {
+            padding: 30px 0 10px 0;
+          }
+            @include custom(1030) {
+              padding: 30px 0 10px 0;
+            }
+
+    }
+
+    a:hover {
+      color: $dark-font;
+      opacity: 1;
+
+        @include md {
+          color: $light-font;
+          border-top: solid 3px $light-font;
+        }
+    }
+    .active {
+      color: $dark-font;
+      opacity: 1;
+
+        @include md {
+          color: $light-font;
+          border-top: solid 3px $light-font;
+        }
+
+    }
+  }
+}
+
+// * * * * * * * * * * * * * * * *  |
+// Home Page - HERO HEADER SECTION  |
+// * * * * * * * * * * * * * * * *  |
+#doc-intro {
+  margin: 0 auto;
+}
+
+//HAWAII True Nature Revealed
+img.hi-true {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+
+    @include custom(900) {
+      width:368px;
+      margin:60px auto;
+    }
+}
+
+
+a.watch-preview-btn {
+  display: block;
+  margin:30px auto;
+  padding-top: 0;
+  width: 236px;
+  height: 44px;
+  border-top: .0625rem solid #d6ddec;
+  border-left: .0625rem solid #d6ddec;
+  border-radius: 22px;
+  background-image: -webkit-linear-gradient(274deg, rgba(244, 134, 105, 1) 40%, rgba(243, 117, 83, 1) 50%);
+  background-image:    -moz-linear-gradient(274deg, rgba(244, 134, 105, 1) 40%, rgba(243, 117, 83, 1) 50%);
+  background-image:      -o-linear-gradient(274deg, rgba(244, 134, 105, 1) 40%, rgba(243, 117, 83, 1) 50%);
+  background-image:         linear-gradient(176deg, rgba(244, 134, 105, 1) 40%, rgba(243, 117, 83, 1) 50%);
+  box-shadow: rgba(0, 0, 0, .3) 2px 2px 0 0;
+
+    @include custom(900) {
+      margin-bottom: 60px;
+    }
+}
+
+.play-btn-icon {
+  float: left;
+  margin: 5px -10px 0 6px;
+  width: 33px;
+}
+
+span.play-btn-text {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 7px 0 0 0;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: #575757 1px 1px 2px;
+  font-weight: 700;
+  font-size: 19px;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.map-intro-cell {
+  padding: 90px 0;
+}
+
+.map-hero {
+  background: url(../img/map-hero.jpg) center;
+  height: 730px;
+}
+
+// * * * * * * * * * * * * * * * *  |
+// Home Page - ACTIVITIES SECTION   |
+// * * * * * * * * * * * * * * * *  |
+
+img.activity-img {
+  float: left;
+}
+
+h2.activity-h {
+  display: inline;
+}
+
+
+@import 'map';
+@import 'location-pages';

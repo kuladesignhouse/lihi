@@ -1,0 +1,215 @@
+@mixin md {
+  @media (min-width: #{$medium}) {
+    @content;
+  }
+}
+
+@mixin mdlg {
+  @media (min-width: #{$medium-large}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$large}) {
+    @content;
+  }
+}
+// Custom breakpoint
+@mixin custom($screen) {
+  @media (min-width: $screen+'px') {
+     @content;
+  }
+}
+
+// Location Page styles
+
+
+// LOCATION PAGES Navigation Container Styles
+.nav-container.location-pages {
+  background: #fff;
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px 0;
+
+    @include md {
+      box-shadow: rgba(0, 0, 0, .2) 0 3px 5px 0;
+      height: 90px !important;
+      z-index: 99; // adds box shadow above the map section
+    }
+      @include lg {
+        height: 110px !important;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+}
+
+// LOCATION PAGES Navigation
+// Styles for Location Pages Nav
+nav.location-nav {
+  li {
+    a {
+      color: $dark-font;
+      opacity: .8;
+      padding: 10px;
+        @include md {
+          opacity: .6;
+          padding: 20px 0;
+        }
+          @include custom(900) {
+            padding: 30px 0 10px 0;
+          }
+            @include custom(1030) {
+              padding: 30px 0 10px 0;
+            }
+
+    }
+    a:hover {
+      color: $dark-font;
+      opacity: 1;
+        @include md {
+          border-top: solid 3px $dark-font;
+        }
+    }
+    .active {
+      color: $dark-font;
+      opacity: 1;
+        @include md {
+          border-top: solid 3px $dark-font;
+        }
+    }
+  }
+}
+
+
+.location-nav-bar {
+  @include md {
+    padding-bottom: 30px;
+  }
+}
+
+
+// Fixes scroll issue on mobile
+.cell-block-y {
+  overflow-y: visible;
+
+  @include md {
+    overflow-y: auto;
+  }
+}
+
+article.location-info-container {
+  padding: 30px;
+
+  img {
+    margin-bottom: 20px;
+  }
+}
+
+h1.location {
+  font-family: $sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+h3.location-sub {
+  font-family: $sans-serif;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+h3.h-highlight {
+  color: $dark-font;
+  font-family: $sans-serif;
+  font-weight: bold;
+  font-size: 26px;
+  float: left;
+}
+
+h3.travel-tip {
+  font-family: $serif;
+  color: $dark-font;
+  font-style: italic;
+}
+
+p.location-overview {
+  font-family: $sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+p.p-highlight {
+  color: $dark-font
+}
+
+p.tip {
+  background: url(../img/travel-tip-icon.png) no-repeat 0px 7px;
+  font-family: $sans-serif;
+  color: $dark-font;
+  padding: 0 5px 10px 40px;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+img.location-highlight-icon {
+  margin: -5px 0 3px 10px;
+  margin-bottom: 10px !important;
+}
+
+.travel-tip-container {
+  background-color: #e7f9ff;
+  background-image: url(../img/hawaiian-floral-pattern.gif);
+  padding: 15px;
+  border: solid 3px $dark-font;
+  border-radius: 7px;
+  margin-bottom: 40px;
+}
+
+// Show and Hide map buttons
+button.show-map {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 60px;
+  margin-top: 90px;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background-color: #00779b;
+}
+
+button.hide-map {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 60px;
+  margin: 90px 30px 0 -7px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background-color: #00779b;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  z-index: 2;
+}
+
+.show-hide-text {
+  padding: 2px 0;
+  color: $light-font;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.map-icon-white {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+img.location-img {
+  cursor: zoom-in;
+}

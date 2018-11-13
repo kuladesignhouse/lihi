@@ -1,0 +1,16 @@
+<div class="grid-container full">
+  <!-- wrapping everything in the grid-y and medium-grid-frame allows it to be scrolled to bottom without loosing nav and have entire page scroll -->
+  <div class="grid-y medium-grid-frame">
+    <div class="grid-x">
+      <div class="small-12 cell nav-container location-pages" data-sticky-container>
+        <div class="sticky nav-bar location-nav-bar" data-sticky data-margin-top="0" data-top-anchor="0" data-sticky-on="small">
+          <div id="topbar-max">
+            <a href="/"><img class="logo" src="{{root}}assets/img/lithi-logo.png" alt="Life in The Hawaiian Islands"></a>
+            {{> mobile-menu}}
+            <nav class="location-nav" id="main-nav" data-animate="slide-in-down slide-out-up">
+              {{> navigation}}
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
