@@ -14,9 +14,9 @@ media_folder: "assets/img/uploads" # Media files will be stored in the repo unde
 
 # Look into wigets https://www.netlifycms.org/docs/widgets for inserting map cordinates
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+  - name: "locations" # Used in routes, e.g., /admin/collections/blog
     label: "Location Pages" # Used in the UI
-    folder: "_posts/blog" # The path to the folder where the documents are stored
+    folder: "_posts/locations" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
     fields: # The fields for each document, usually in front matter
