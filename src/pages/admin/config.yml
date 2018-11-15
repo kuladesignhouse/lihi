@@ -10,7 +10,6 @@ publish_mode: editorial_workflow
 
 # This line should *not* be indented
 media_folder: "src/assets/img/uploads" # Media files will be stored in the repo under src/assets/img/uploads
-public_folder: "/assets/img/uploads" # The src attribute for uploaded media will begin with /images/uploads
 
 
 # Look into wigets https://www.netlifycms.org/docs/widgets for inserting map cordinates
@@ -19,11 +18,10 @@ collections:
     label: "Location Pages" # Used in the UI
     folder: "src/pages/map" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    extension: html
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
     fields: # The fields for each document, usually in front matter
       - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-      - {label: "Title", name: "meta-title", widget: "string"}
+      - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image"}
       - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
