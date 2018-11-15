@@ -9,7 +9,8 @@ backend:
 publish_mode: editorial_workflow
 
 # This line should *not* be indented
-media_folder: "src/assets/img/uploads" # Media files will be stored in the repo under images/uploads
+media_folder: "src/assets/img/uploads" # Media files will be stored in the repo under src/assets/img/uploads
+public_folder: "/assets/img/uploads" # The src attribute for uploaded media will begin with /images/uploads
 
 
 # Look into wigets https://www.netlifycms.org/docs/widgets for inserting map cordinates
