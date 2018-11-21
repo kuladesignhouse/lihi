@@ -1,0 +1,191 @@
+{{!-- This is the base layout for location pages TEST --}}
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{meta-title}} | Life in the Hawaiian Islands</title>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500|Merriweather:400,400i,700,700i|Roboto+Condensed:700" rel="stylesheet">
+    <link rel="stylesheet" href="{{root}}assets/css/app.css">
+    <link rel="stylesheet" href="{{root}}assets/css/main.min.css">
+  </head>
+  <body>
+    {{> location-nav}}
+
+    <button class="show-map hide-for-medium" type="button" data-toggle="map-canvas-container">
+      <div class="show-hide-text">show map</div>
+    </button>
+      <div class="grid-y medium-grid-frame">
+        <div class="cell auto body cell-block-container">
+          <div class="grid-x">
+
+            <div class="auto cell off-canvas in-canvas-for-medium position-right" id="map-canvas-container" data-off-canvas data-transition="overlap">
+              <button type="button" class="hide-map hide-for-medium" data-toggle="map-canvas-container" data-animate="slide-in-right slide-out-right">
+                <div class="show-hide-text">hide map</div>
+              </button>
+              <div id="map">
+                <nav id="menu"></nav>
+              </div>
+            </div>
+
+            <article class="cell medium-5 cell-block-y location-info-container">
+              <h1 class="location">{{title}}</h1>
+              {{#markdown}}
+              {{> body}}
+              {{/markdown}}
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd3A4ajRzZWhxbmkifQ.YGpcRNhIqZtH3Q71a-UVKw';
+          var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/lonegrainger/cjgv8hrfl001i2rqhmd7l32qu', // old style 'mapbox://styles/lonegrainger/cjgb8kfhn2idm2rrtq592p5sz',
+          center: [-156.381, 20.789],
+          zoom: 10,
+          maxZoom: 17,
+          minZoom: 5.77
+          });
+
+    /* Adds water depth info but intrudes on land so basically useless... Delete comment marks top and bottom to reactivate.
+
+          map.on('load', function() {
+
+            map.addSource('10m-bathymetry-81bsvj', {
+              type: 'vector',
+              url: 'mapbox://mapbox.9tm8dx88'
+            });
+
+          map.addLayer({
+            "id": "10m-bathymetry-81bsvj",
+            "type": "fill",
+            "source": "10m-bathymetry-81bsvj",
+            "source-layer": "10m-bathymetry-81bsvj",
+            "layout": {},
+            "paint": {
+              "fill-outline-color": "hsla(337, 82%, 62%, 0)",
+              // cubic bezier is a four point curve for smooth and precise styling
+              // adjust the points to change the rate and intensity of interpolation
+              "fill-color": [ "interpolate",
+                  [ "cubic-bezier",
+                      0, 0.5,
+                      1, 0.5 ],
+                  ["get", "DEPTH"],
+                  200,  "#78bced",
+                  9000, "#15659f"
+              ]
+          }
+        }, 'barrier_line-land-polygon');
+    });
+
+    */
+
+      // Enables fullscreen mode
+      map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
+
+      map.resize();
+
+
+      // This sections adds toggle menu to hide/show layers
+
+      var toggleableLayerIds = [ 'beaches', 'snorkeling', 'sights' ];
+
+      for (var i = 0; i < toggleableLayerIds.length; i++) {
+          var id = toggleableLayerIds[i];
+
+          var link = document.createElement('a');
+          link.href = '#';
+          link.className = 'active';
+          link.textContent = id;
+
+          link.onclick = function (e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+              if (visibility === 'visible') {
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                  this.className = '';
+              } else {
+                  this.className = 'active';
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+          };
+
+          var layers = document.getElementById('menu');
+          layers.appendChild(link);
+      }
+
+      // This sections activates the popup description box
+
+          map.on('click', function(e) {
+        var features = map.queryRenderedFeatures(e.point, {
+          layers: ['beaches', 'snorkeling', 'sights'] // add the name of the layers
+        });
+
+        if (!features.length) {
+          return;
+        }
+
+        var feature = features[0];
+
+        var popup = new mapboxgl.Popup({ offset: [0, -15] })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML('<h3>' + feature.properties.title + '</h3><img src="/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
+          .setLngLat(feature.geometry.coordinates)
+          .addTo(map);
+
+      // Center the map on the coordinates of any clicked symbol from the layer.
+          map.on('click', 'beaches', function (e) {
+              map.flyTo({center: e.features[0].geometry.coordinates});
+          });
+
+        map.on('click', 'snorkeling', function (e) {
+              map.flyTo({center: e.features[0].geometry.coordinates});
+          });
+
+      // Change the cursor to a pointer when the it enters a feature in the layer.
+          map.on('mouseenter', 'beaches', function () {
+              map.getCanvas().style.cursor = 'pointer';
+          });
+
+        map.on('mouseenter', 'snorkeling', function () {
+              map.getCanvas().style.cursor = 'pointer';
+          });
+
+        map.on('mouseenter', 'sights', function () {
+              map.getCanvas().style.cursor = 'pointer';
+          });
+
+      // Change it back to a pointer when it leaves.
+          map.on('mouseleave', 'beaches', function () {
+              map.getCanvas().style.cursor = '';
+          });
+
+        map.on('mouseleave', 'snorkeling', function () {
+              map.getCanvas().style.cursor = '';
+          });
+
+        map.on('mouseleave', 'sights', function () {
+              map.getCanvas().style.cursor = '';
+          });
+
+      });
+
+
+      </script>
+
+      </div>
+    </div>
+
+    <script src="{{root}}assets/js/app.js"></script>
+  </body>
+</html>
