@@ -45,44 +45,12 @@
           var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/lonegrainger/cjgv8hrfl001i2rqhmd7l32qu', // old style 'mapbox://styles/lonegrainger/cjgb8kfhn2idm2rrtq592p5sz',
-          center: [-156.381, 20.789],
+          center: [{{center-coordinates}}],
           zoom: 10,
           maxZoom: 17,
           minZoom: 5.77
           });
 
-    /* Adds water depth info but intrudes on land so basically useless... Delete comment marks top and bottom to reactivate.
-
-          map.on('load', function() {
-
-            map.addSource('10m-bathymetry-81bsvj', {
-              type: 'vector',
-              url: 'mapbox://mapbox.9tm8dx88'
-            });
-
-          map.addLayer({
-            "id": "10m-bathymetry-81bsvj",
-            "type": "fill",
-            "source": "10m-bathymetry-81bsvj",
-            "source-layer": "10m-bathymetry-81bsvj",
-            "layout": {},
-            "paint": {
-              "fill-outline-color": "hsla(337, 82%, 62%, 0)",
-              // cubic bezier is a four point curve for smooth and precise styling
-              // adjust the points to change the rate and intensity of interpolation
-              "fill-color": [ "interpolate",
-                  [ "cubic-bezier",
-                      0, 0.5,
-                      1, 0.5 ],
-                  ["get", "DEPTH"],
-                  200,  "#78bced",
-                  9000, "#15659f"
-              ]
-          }
-        }, 'barrier_line-land-polygon');
-    });
-
-    */
 
       // Enables fullscreen mode
       map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
@@ -137,7 +105,7 @@
 
         var popup = new mapboxgl.Popup({ offset: [0, -15] })
           .setLngLat(feature.geometry.coordinates)
-          .setHTML('<h3>' + feature.properties.title + '</h3><img src="/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
+          .setHTML('<h3>' + feature.properties.title + '</h3><img src="assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
           .setLngLat(feature.geometry.coordinates)
           .addTo(map);
 
