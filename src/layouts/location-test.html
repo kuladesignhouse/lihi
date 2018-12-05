@@ -105,7 +105,7 @@
 
         var popup = new mapboxgl.Popup({ offset: [0, -15] })
           .setLngLat(feature.geometry.coordinates)
-          .setHTML('<h3>' + feature.properties.title + '</h3><img src="assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
+          .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
           .setLngLat(feature.geometry.coordinates)
           .addTo(map);
 
