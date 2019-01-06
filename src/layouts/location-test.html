@@ -1,51 +1,7 @@
 {{!-- This is the base layout for location pages TEST --}}
-
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{meta-title}} | Life in the Hawaiian Islands</title>
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500|Merriweather:400,400i,700,700i|Roboto+Condensed:700" rel="stylesheet">
-    <link rel="stylesheet" href="{{root}}assets/css/app.css">
-    <link rel="stylesheet" href="{{root}}assets/css/main.min.css">
-  </head>
-  <body>
-    {{> location-nav}}
-
-    <button class="show-map hide-for-medium" type="button" data-toggle="map-canvas-container">
-      <div class="show-hide-text">show map</div>
-    </button>
-      <div class="grid-y medium-grid-frame">
-        <div class="cell auto body cell-block-container">
-          <div class="grid-x">
-
-            <div class="auto cell off-canvas in-canvas-for-medium position-right" id="map-canvas-container" data-off-canvas data-transition="overlap">
-              <button type="button" class="hide-map hide-for-medium" data-toggle="map-canvas-container" data-animate="slide-in-right slide-out-right">
-                <div class="show-hide-text">hide map</div>
-              </button>
-              <div id="map">
-                <nav id="menu"></nav>
-              </div>
-            </div>
-
-            <article class="cell medium-5 cell-block-y location-info-container">
-              <h1 class="location">{{title}}</h1>
-              {{#markdown}}
-              {{> body}}
-              {{/markdown}}
-            </article>
-          </div>
-        </div>
-      </div>
-      {{> map}}
-
-      </div>
-    </div>
-
-    <script src="{{root}}assets/js/app.js"></script>
-  </body>
-</html>
+{{> head}}
+  {{> location-nav}}
+        {{> map-container}}
+          {{> location-article}}
+          {{> map-settings}}
+{{> location-footer}}
