@@ -2,7 +2,9 @@
         <h1 class="location">{{title}}</h1>
 
         <!-- try adding the mark down helper here and adding the closing one below body -->
-        {{> body}}
+        {{#markdown}}
+          {{> body}}
+        {{/markdown}}
       </article>
     </div>
   </div>

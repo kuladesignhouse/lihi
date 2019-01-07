@@ -16,7 +16,7 @@ public_folder: "/assets/img/uploads" # The src attribute for uploaded media will
 
 # Look into wigets https://www.netlifycms.org/docs/widgets for inserting map cordinates
 collections:
-  - name: "locations" # Used in routes, e.g., /admin/collections/blog
+  - name: "locations" # Used in routes, e.g., /admin/collections/locations
     label: "Location Pages" # Used in the UI
     folder: "src/pages/map" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
