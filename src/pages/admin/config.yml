@@ -28,4 +28,6 @@ collections:
       - {label: "Meta-Title", name: "meta-title", widget: "string"}
       - {label: "Map Center Cordinates", description: "long, lat", name: "center-coordinates", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Markdown", name: "body", widget: "hidden", default: "{{#markdown}}"}
       - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Markdown", name: "body", widget: "hidden", default: "{{/markdown}}"}
