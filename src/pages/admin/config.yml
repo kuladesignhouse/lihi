@@ -24,8 +24,13 @@ collections:
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
     fields: # The fields for each document, usually in front matter
       - {label: "Layout", name: "layout", widget: "hidden", default: "location"}
+      - label: "Map Settings"
+        name: "map-settings"
+        widget: "object"
+        fields:
+          - {label: "Map Center Cordinates", hint: "must be in format: longitude, latitude e.g. -155.505853, 19.613383", name: "center-coordinates", widget: "string"}
+          - {label: "Zoom Level", hint: "minimum zoom is 6, max is 17", name: "zoom-level", widget: "string"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Meta-Title", name: "meta-title", widget: "string"}
-      - {label: "Map Center Cordinates", hint: "must be in format: long, lat", name: "center-coordinates", widget: "string"}
+      - {label: "Meta-Title", hint: "Title that shows in browser window/tab ' | Life in the Hawaiian Islands' is automatcally added to the end",name: "meta-title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Body", name: "body", widget: "markdown"}
