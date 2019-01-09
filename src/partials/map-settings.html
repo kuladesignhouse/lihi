@@ -3,8 +3,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/lonegrainger/cjgv8hrfl001i2rqhmd7l32qu', // old style 'mapbox://styles/lonegrainger/cjgb8kfhn2idm2rrtq592p5sz',
+  {{#map-settings}}
     center: [{{center-coordinates}}], //center coordinates are being pulled from CMS on build
     zoom: {{zoom-level}},
+  {{/map-settings}}
     maxZoom: 17,
     minZoom: 5.77
     });
