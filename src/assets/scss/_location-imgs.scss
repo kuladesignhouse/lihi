@@ -1,0 +1,58 @@
+@mixin md {
+  @media (min-width: #{$medium}) {
+    @content;
+  }
+}
+
+@mixin mdlg {
+  @media (min-width: #{$medium-large}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$large}) {
+    @content;
+  }
+}
+// Custom breakpoint
+@mixin custom($screen) {
+  @media (min-width: $screen+'px') {
+     @content;
+  }
+}
+
+.location-img-options {
+  height: 0;
+  overflow: hidden;
+  transition-property: height, outline-color;
+  transition-duration: .5s;
+  transition-delay: 0s;
+}
+
+.location-article-img {
+  width: 100%;
+  background-color: rgba(77, 77, 77, 1);
+  outline: solid 2px;
+  outline-color: rgba(77, 77, 77, 0);
+  transition-property:outline-color;
+  transition-duration: .5s;
+  transition-delay: 0s;
+}
+
+.location-article-img:hover {
+  background-color: rgba(77, 77, 77, 1);
+  width: 100%;
+  outline: solid 2px;
+  outline-color: rgba(77, 77, 77, 1);
+  transition-property:outline-color;
+  transition-duration: .5s;
+  transition-delay: 0s;
+}
+
+.location-article-img:hover .location-img-options {
+  height: 90px;
+  transition-property: height, outline;
+  transition-duration: .5s;
+  transition-delay: 0s;
+}
