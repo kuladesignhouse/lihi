@@ -22,37 +22,52 @@
   }
 }
 
-.location-img-options {
+.location-img-dropdown {
   height: 0;
+  display: none;
+  visibility: hidden;
   overflow: hidden;
+  background-color: rgba(77, 77, 77, 1);
   transition-property: height, outline-color;
-  transition-duration: .5s;
+  transition-duration: .3s;
   transition-delay: 0s;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding:10px;
+  p {
+    color: $white;
+    font-style: 13px;
+  }
 }
 
 .location-article-img {
-  width: 100%;
-  background-color: rgba(77, 77, 77, 1);
+  width: auto;
+  max-width: 600px;
   outline: solid 2px;
+  overflow: hidden;
+  margin-bottom: 10px; //does not effect content in dropdown
   outline-color: rgba(77, 77, 77, 0);
-  transition-property:outline-color;
-  transition-duration: .5s;
+  transition-property: outline-color;
+  transition-duration: .3s;
+  transition-delay: 0s;
+  background-color: rgba(77, 77, 77, 0);
+}
+
+.location-article-img:hover .location-img-dropdown {
+  height: 70px;
+  visibility: visible;
+  transition-property: height, outline;
+  transition-duration: .3s;
   transition-delay: 0s;
 }
 
 .location-article-img:hover {
-  background-color: rgba(77, 77, 77, 1);
   width: 100%;
   outline: solid 2px;
+  background-color: rgba(77, 77, 77, 1);
   outline-color: rgba(77, 77, 77, 1);
-  transition-property:outline-color;
-  transition-duration: .5s;
-  transition-delay: 0s;
-}
-
-.location-article-img:hover .location-img-options {
-  height: 90px;
-  transition-property: height, outline;
-  transition-duration: .5s;
+  transition-property: outline-color;
+  transition-duration: .3s;
   transition-delay: 0s;
 }
