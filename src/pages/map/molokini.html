@@ -6,7 +6,7 @@ center-coordinates: '-156.381, 20.789'
 zoom-level: '10'
 ---
           <p class="location-overview">Molokini is a crescent-shaped, partially submerged volcanic crater which forms a small, uninhabited islet located in ‘Alalākeiki Channel between the islands of Maui and Kaho’olawe</p>
-          <img class="location-img" data-open="modal-molokini" src="{{root}}assets/img/molokini-crater-aerial.jpg" alt="Aerial of Molokini Crater">
+          <img class="location-article-img" data-open="modal-molokini" src="{{root}}assets/img/molokini-arial-lg.jpg" alt="Aerial of Molokini Crater">
           <div class="small reveal" id="modal-molokini" data-reveal data-animation-in="scale-in-up" data-animation-out="scale-out-down fast">
             <img src="{{root}}assets/img/molokini-arial-lg.jpg" alt="Aerial of Molokini Crater">
             <button class="close-button" data-close aria-label="Close modal" type="button">
@@ -16,9 +16,13 @@ zoom-level: '10'
           <p>Just off the shores of Makena sits the 23 acre crescent shaped volcanic crater, Molokini. With over 250 species of fish and some of the most clear waters in the state of Hawaii, Molokini is one of Hawaii's top diving destinations. It is estimated Molokini is about 230,000 years old, and over the course of the past 1500 years, Molokini has gone from Ancient Hawaiian fishing grounds, to target practice for World War II bombers, but in 1977 it was established as a Marine Life Conservation District. This designation has allowed the marine life here to flourish.</p>
           <div class="location-article-img">
             <img class="location-img" src="{{root}}assets/img/hawkfish-molokini.jpg" alt="Hawkfish in the reef at Molokini">
-            <div class="location-img-dropdown">
-              <p>A hawkfish uses this similar looking coral to hide among the reef</p>
-              {{> buy-btn}}
+            <div class="location-img-dropdown grid-x">
+              <div class="cell small-12 medium-8">
+                <p>A Hawkfish uses this similar looking coral to hide among the reef. Molokini offers a rare opportunity to see these and other scarsely seen fish such as this.</p>
+              </div>
+              <div id="buy-btn-container" class="cell small-12 medium-4">
+                {{> buy-btn}}
+              </div>
             </div>
           </div>
 

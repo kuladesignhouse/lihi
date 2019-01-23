@@ -21,11 +21,17 @@
      @content;
   }
 }
-//this is the iframe only other toggle options are found in partials/buy-btn.html
+/* Shopping Cart Toggle * * */
+//this is the iframe only, other toggle options are found in partials/buy-btn.html
 @include md {
   .shopify-buy-frame--toggle.is-sticky {
     top: 30px !important;
     right: 20px !important;
     border-radius: 0 0 3px 3px !important;
   }
+}
+/* Buy Button * * */
+//this targets div wrapping the iframe of the buy-btn
+#buy-btn-container :first-child {
+  max-width: none !important;
 }

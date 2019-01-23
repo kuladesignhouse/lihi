@@ -23,50 +23,57 @@
 }
 
 .location-img-dropdown {
-  height: 0;
-  display: none;
-  visibility: hidden;
+  max-height: 0;
   overflow: hidden;
-  background-color: rgba(77, 77, 77, 1);
-  transition-property: height, outline-color;
-  transition-duration: .3s;
-  transition-delay: 0s;
-  display: flex;
+  background-color: rgba(55, 55, 55, 1);
+  transition-property: max-height, outline-color;
+  transition-duration: .7s;
+  transition-delay: .7s; // controlls the the delay when not hovering on image
   align-items: center;
   box-sizing: border-box;
-  padding:10px;
+  cursor: default;
   p {
     color: $white;
-    font-style: 13px;
+    margin: 10px 10px 10px 20px;
+    padding-right: 15px;
+    font-size: 14px;
+    @include md {
+      font-size: 15px;
+      line-height: 1.3;
+      border-right: solid 1px #fff;
+    }
   }
 }
 
 .location-article-img {
-  width: auto;
+  width: 100%;
+  box-sizing: border-box;
   max-width: 600px;
   outline: solid 2px;
   overflow: hidden;
   margin-bottom: 10px; //does not effect content in dropdown
-  outline-color: rgba(77, 77, 77, 0);
+  outline-color: rgba(55, 55, 55, 0);
   transition-property: outline-color;
   transition-duration: .3s;
   transition-delay: 0s;
-  background-color: rgba(77, 77, 77, 0);
+  background-color: rgba(55, 55, 55, 1);
+  cursor: zoom-in;
 }
 
 .location-article-img:hover .location-img-dropdown {
-  height: 70px;
+  height: auto;
+  max-height: 250px;
   visibility: visible;
-  transition-property: height, outline;
-  transition-duration: .3s;
+  transition-property: max-height, outline;
+  transition-duration: .7s;
   transition-delay: 0s;
 }
 
 .location-article-img:hover {
   width: 100%;
   outline: solid 2px;
-  background-color: rgba(77, 77, 77, 1);
-  outline-color: rgba(77, 77, 77, 1);
+  background-color: rgba(55, 55, 55, 1);
+  outline-color: rgba(55, 55, 55, 1);
   transition-property: outline-color;
   transition-duration: .3s;
   transition-delay: 0s;
