@@ -32,7 +32,8 @@
   align-items: center;
   box-sizing: border-box;
   cursor: default;
-  p {
+  
+  p.location-img-description {
     color: $white;
     margin: 10px 10px 10px 20px;
     padding-right: 15px;
@@ -62,7 +63,7 @@
 
 .location-article-img:hover .location-img-dropdown {
   height: auto;
-  max-height: 250px;
+  max-height: 150px;
   visibility: visible;
   transition-property: max-height, outline;
   transition-duration: .7s;

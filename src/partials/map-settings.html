@@ -5,12 +5,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd
       style: 'mapbox://styles/lonegrainger/cjgv8hrfl001i2rqhmd7l32qu', // old style 'mapbox://styles/lonegrainger/cjgb8kfhn2idm2rrtq592p5sz',
   {{#map-settings}}
     center: [{{center-coordinates}}], //center coordinates are being pulled from CMS on build
-    zoom: {{zoom-level}},
+    zoom: {{zoom-level}}, //zoom level being pulled from CMS on build
   {{/map-settings}}
     maxZoom: 17,
     minZoom: 5.77
     });
-
 
 // Enables fullscreen mode (uncomment the 2 lines below to re-enable)
   //map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
@@ -108,5 +107,12 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 
 });
 
-
 </script>
+
+<!-- This is supposed to force compact but doesn't seem to work
+//TRYING THE TO FORCE COMPACT ALWAYS CHECK ERROR ON LINE 17?
+var map = new mapboxgl.Map({attributionControl: true})
+.addControl(new mapboxgl.AttributionControl({
+    compact: true
+}));
+-->
