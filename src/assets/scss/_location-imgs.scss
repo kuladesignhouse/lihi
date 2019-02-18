@@ -35,8 +35,9 @@
   
   p.location-img-description {
     color: $white;
-    margin: 10px 10px 10px 20px;
-    padding-right: 15px;
+    font-family: $sans-serif;
+    margin: 20px 20px 20px 30px;
+    padding-right: 20px;
     font-size: 14px;
     @include md {
       font-size: 15px;
@@ -63,7 +64,7 @@
 
 .location-article-img:hover .location-img-dropdown {
   height: auto;
-  max-height: 150px;
+  max-height: 170px;
   visibility: visible;
   transition-property: max-height, outline;
   transition-duration: .7s;

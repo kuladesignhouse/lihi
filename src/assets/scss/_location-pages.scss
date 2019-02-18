@@ -102,7 +102,7 @@ article.location-info-container {
 
 h1.location {
   font-family: $sans-serif;
-  font-size: 36px;
+  font-size: 38px;
   font-weight: bold;
 }
 
@@ -129,14 +129,14 @@ h3.travel-tip {
 article.location-info-container {
   p {
     font-size: 14px;
+    font-family: $body-font-family;
 
     @include md {
-      font-size: 16px;
+      font-size: 17px;
     }
   }
   p.location-overview {
     font-size: 18px;
-    font-family: $sans-serif;
     font-weight: bold;
   }
 }

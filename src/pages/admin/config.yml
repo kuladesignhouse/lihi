@@ -33,4 +33,20 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Meta-Title", hint: "Title that shows in browser window/tab ' | Life in the Hawaiian Islands' is automatcally added to the end", name: "meta-title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Location Overview Paragraph", name: "location-overview-paragraph", widget: "text"}
+      - label: "Body Content"
+        name: "body-content"
+        widget: "list"
+        types:
+          - label: "Paragraph"
+            name: "body-p"
+            widget: "text"
+          - label: "Image (Buyable)"
+            name: "buyable-image"
+            widget: "object"
+            fields:
+              - { label: "Image", name: "buy-image", widget, "image" }
+              - { label: "Image Caption", name: "img-caption", widget, "text" }
+              - { label: "Shopify ID", name: "shop-id", widget, "string" }
+              - { label: "Image-Label", hint: "Must be unique to other images on this page" name: "img-label", widget, "string" }
+
