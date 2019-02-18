@@ -39,12 +39,12 @@ collections:
         name: "pandimg"
         widget: "list"
         types:
-          - label: "Opening Paragraph"
-            name: "opening-paragraph"
+          - label: "Paragraph + Buyable Image"
+            name: "main-contents"
             widget: "object"
             fields:
-              - { label: "Paragraph", name: "main-paragraph", widget: "text" }
-              - { label: "Buyable Image", name: "buy-image", widget: "image" }
+              - { label: "Paragraph", name: "content-paragraph", widget: "text" }
+              - { label: "Image", name: "buy-image", widget: "image" }
               - { label: "Image Caption", name: "img-caption", widget: "text" }
               - { label: "Shopify ID", name: "shop-id", widget: "string" }
               - { label: "Image-Label", hint: "Must be unique to other images on this page", name: "img-label", widget: "string" }
