@@ -49,4 +49,5 @@ collections:
               - { label: "Image Caption", name: "img-caption", widget, "text" }
               - { label: "Shopify ID", name: "shop-id", widget, "string" }
               - { label: "Image-Label", hint: "Must be unique to other images on this page" name: "img-label", widget, "string" }
-
+              
+              
