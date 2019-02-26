@@ -1,4 +1,4 @@
-<div id='product-component-8770a7caf1b'></div>
+<div id='{{img-label}}'></div> <!-- img-label is being pulled in from page frontmatter -->
     <script type="text/javascript">
     /*<![CDATA[*/
 
@@ -30,8 +30,8 @@
 
         ShopifyBuy.UI.onReady(client).then(function (ui) {
           ui.createComponent('product', {
-            id: [1395976568890],
-            node: document.getElementById('product-component-8770a7caf1b'),
+            id: [{{shop-id}}], //shop-id is being pulled in on build from yaml data (this is giving JS errors becasue of Panini Syntax)
+            node: document.getElementById('{{img-label}}'),//img-label is being pulled in on build from page frontmatter
             moneyFormat: '%24%7B%7Bamount%7D%7D',
             options: {
   "product": {
