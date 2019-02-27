@@ -1,18 +1,8 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
-<script>
-function run() {
-  var text = document.getElementById('sourceTA').value,
-      target = document.getElementById('targetDiv'),
-      converter = new showdown.Converter(),
-      html = converter.makeHtml(text);
-    
-    target.innerHTML = html;
-}
-</script>
 <article class="cell medium-5 cell-block-y location-info-container">
         <h1 class="location">{{title}}</h1>
         <p class="location-overview">{{location-overview-paragraph}}</p>
-        {{#each pandimg}}
+        {{#body-content}}
+        {{#each buyable-image}}
           <div class="location-article-img">
             <img class="location-img" src="{{buy-image}}" alt="">
             <div class="location-img-dropdown grid-x">
@@ -24,11 +14,13 @@ function run() {
               </div>
             </div>
           </div>
+          {{/each}}
+          {{#each paragraph}}
           <p>{{content-paragraph}}</p>
-        {{/each}}
+          {{/each}}
+        {{/body-content}}
         {{> body}}
       </article>
     </div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
