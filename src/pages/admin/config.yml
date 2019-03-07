@@ -14,7 +14,7 @@ public_folder: "/assets/img/uploads" # The src attribute for uploaded media will
 
 
 
-# Look into wigets https://www.netlifycms.org/docs/widgets for inserting map cordinates
+# Look into widgets https://www.netlifycms.org/docs/widgets for inserting map cordinates
 collections:
   - name: "locations" # Used in routes, e.g., /admin/collections/locations
     label: "Location Pages" # Used in the UI
@@ -32,17 +32,20 @@ collections:
           - {label: "Zoom Level", hint: "minimum zoom is 6, max is 17 (default is 11)", name: "zoom-level", widget: "string", default: "11"}
           - {label: "Map Cordinates", hint: "testing map feature", name: "map-cord", decimals: "3", widget: "map"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Meta-Title", hint: "Title that shows in browser window/tab ' | Life in the Hawaiian Islands' is automatcally added to the end", name: "meta-title", widget: "string"}
+      - {label: "Meta-Title", hint: "Title that shows in browser window/tab ' | Life in the Hawaiian Islands' is automatically added to the end", name: "meta-title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Location Overview Paragraph", name: "location-overview-paragraph", widget: "text"}
       - label: "Body Content"
         name: "body-content"
         widget: "list"
         types:
-          - label: "Paragraph + Buyable Image"
-            name: "main-contents"
+          - label: "Buyable Image"
+            name: "buyable-img-object"
             widget: "object"
             fields:
+              - label: "Image"
+                name: "buy-image"
+                #Keep Building list widget here!
               - { label: "Image", name: "buy-image", widget: "image" }
               - { label: "Image Caption", name: "img-caption", widget: "text" }
               - { label: "Shopify ID", name: "shop-id", widget: "string" }
