@@ -1,4 +1,4 @@
-<div id='{{img-label}}'></div> <!-- img-label is being pulled in from page frontmatter -->
+<div id='buybtn1'></div>
     <script type="text/javascript">
     /*<![CDATA[*/
 
@@ -30,8 +30,8 @@
 
         ShopifyBuy.UI.onReady(client).then(function (ui) {
           ui.createComponent('product', {
-            id: [{{shop-id}}], //shop-id is being pulled in on build from yaml data (this is giving JS errors becasue of Panini Syntax)
-            node: document.getElementById('{{img-label}}'),//img-label is being pulled in on build from page frontmatter
+            id: [2294603251770],
+            node: document.getElementById('buybtn1'),
             moneyFormat: '%24%7B%7Bamount%7D%7D',
             options: {
   "product": {
