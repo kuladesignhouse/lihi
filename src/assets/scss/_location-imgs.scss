@@ -23,26 +23,53 @@
 }
 
 .location-img-dropdown {
-  max-height: 0;
+  width: 100%;
+  max-height: 270px;
   overflow: hidden;
-  background-color: rgba(55, 55, 55, 1);
-  transition-property: max-height, outline-color;
-  transition-duration: .7s;
-  transition-delay: .7s; // controlls the the delay when not hovering on image
+  background-color: $white;
   align-items: center;
   box-sizing: border-box;
   cursor: default;
-  
+  transition: max-height 700ms ease 300ms;
+  @include md {
+    max-height: 0;
+  }
   p.location-img-description {
-    color: $white;
     font-family: $sans-serif;
-    margin: 20px 20px 20px 30px;
-    padding-right: 20px;
+    margin: 15px;
     font-size: 14px;
     @include md {
       font-size: 15px;
       line-height: 1.3;
-      border-right: solid 1px #fff;
+      margin: 20px;
+    }
+  }
+  .btn-wrap {
+    background-color: #e7e7e7;
+    padding: 6px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include custom(420) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    p {
+      font-family: $sans-serif;
+      color: #4d4d4d;
+      font-size: 11px;
+      margin: 0px 0px 5px 0px;
+      @include custom(340) {
+        font-size: 12px;
+      }      
+      @include custom(420) {
+        margin: 0px;
+        font-size: 12px;
+      }
+      @include custom(475) {
+        font-size: 14px;
+      }
     }
   }
 }
@@ -51,33 +78,29 @@
   width: 100%;
   box-sizing: border-box;
   max-width: 600px;
-  outline: solid 2px;
   overflow: hidden;
   margin-bottom: 10px; //does not effect content in dropdown
-  outline-color: rgba(55, 55, 55, 0);
-  transition-property: outline-color;
-  transition-duration: .3s;
-  transition-delay: 0s;
-  background-color: rgba(55, 55, 55, 1);
   cursor: zoom-in;
+  background-color: $white;
+  border: 6px solid $white;
+  border-radius: 3px;
+  transition: box-shadow 700ms ease 300ms;
+  box-shadow: 1px 2px 12.61px 0.39px rgba(7, 8, 17, 0.35);
+    @include md {
+      box-shadow: none;
+    }
 }
 
 .location-article-img:hover .location-img-dropdown {
   height: auto;
-  max-height: 170px;
+  max-height: 270px;
   visibility: visible;
-  transition-property: max-height, outline;
-  transition-duration: .7s;
-  transition-delay: 0s;
+  transition: max-height 700ms ease 300ms;
 }
 
 .location-article-img:hover {
   width: 100%;
-  outline: solid 2px;
-  background-color: rgba(55, 55, 55, 1);
-  outline-color: rgba(55, 55, 55, 1);
-  transition-property: outline-color;
-  transition-duration: .3s;
-  transition-delay: 0s;
+  box-shadow: 1px 2px 12.61px 0.39px rgba(7, 8, 17, 0.35);
+  transition: box-shadow 400ms ease 0ms;
 }
 
