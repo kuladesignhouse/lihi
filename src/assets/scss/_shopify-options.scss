@@ -23,11 +23,14 @@
 }
 /* Shopping Cart Toggle * * */
 //this is the iframe only, other toggle options are found in partials/buy-btn.html
-@include md {
-  .shopify-buy-frame--toggle.is-sticky {
-    top: 30px !important;
+.shopify-buy-frame--toggle.is-sticky {
+  top: 113px !important;
+  right: 104px !important;
+  z-index: 1 !important; //trying to place under the navbar
+  @include md {
+    top: 23px !important;
     right: 20px !important;
-    border-radius: 0 0 3px 3px !important;
+    z-index: 99 !important;
   }
 }
 /* Buy Button * * */
