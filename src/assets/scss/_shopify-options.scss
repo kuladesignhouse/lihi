@@ -31,7 +31,14 @@
     top: 23px !important;
     right: 20px !important;
     z-index: 99 !important;
+    width: 46px !important; //width media query hack
   }
+}
+/* Shopping Cart Toggle Button * * */
+.shopify-buy__cart-toggle.is-sticky {
+  @include md {
+    width: 46px !important; //width media query hack
+  }  
 }
 /* Buy Button * * */
 //this targets div wrapping the iframe of the buy-btn
