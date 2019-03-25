@@ -47,6 +47,12 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     layers.appendChild(link);
 }
 
+// This sections toggles map options menu
+
+document.getElementById('mapmenu').onclick = function () {
+    document.getElementById('menu').classList.toggle("showlayers");
+};
+
 // This sections activates the popup description box
 
     map.on('click', function(e) {

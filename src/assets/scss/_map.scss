@@ -23,6 +23,17 @@
 }
 
 // Map css
+svg#mapmenu {
+  position: absolute;
+  z-index: 1;
+  top: 47px;
+  right: 58px;
+  display: block;
+  @include md {
+    display: none;
+  }
+}
+
 #menu {
   background: #fff;
   position: absolute;
@@ -33,6 +44,14 @@
   width: 120px;
   border: 1px solid rgba(0,0,0,0.4);
   font-family: 'Open Sans', sans-serif;
+  display: none;
+  @include md {
+    display: block;
+  }
+}
+
+#menu.showlayers {
+  display: block;
 }
 
 #menu a {
