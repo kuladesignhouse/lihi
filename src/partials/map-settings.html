@@ -25,7 +25,15 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     var link = document.createElement('a');
     link.href = '#';
     link.className = 'active';
-    link.textContent = id;
+    
+    var img = new Image();
+    img.setAttribute("height", "20px");
+    img.setAttribute("width", "20px");
+    img.src = "{{root}}assets/img/" + id + ".png";
+    link.appendChild(img);
+    var id_div = document.createElement("div");
+    id_div.textContent = id;
+    link.append(id_div);    
 
     link.onclick = function (e) {
         var clickedLayer = this.textContent;
@@ -33,7 +41,6 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
         e.stopPropagation();
 
         var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
         if (visibility === 'visible') {
             map.setLayoutProperty(clickedLayer, 'visibility', 'none');
             this.className = '';
@@ -41,6 +48,7 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
             this.className = 'active';
             map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
         }
+        this.childNodes[0].classList.toggle("greyscale");
     };
 
     var layers = document.getElementById('menu');
@@ -51,6 +59,7 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 
 document.getElementById('mapmenu').onclick = function () {
     document.getElementById('menu').classList.toggle("showlayers");
+    document.getElementById('mapmenu').classList.toggle("mv");
 };
 
 // This sections activates the popup description box
