@@ -303,7 +303,7 @@ img.logo {
 // Styles for Hero Header Nav
 nav {
   position: absolute;
-  margin: 70px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div
+  margin: 20px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div //top margin for mobile to move options nav up
   padding:0;
   height: auto;
   width: 100%;
@@ -312,6 +312,7 @@ nav {
   box-shadow: rgba(0, 0, 0, .4) 0 5px 4px 0;
 
     @include md {
+      margin: 70px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div
       position: static;
       background: none;
       box-shadow: none;
