@@ -8,8 +8,12 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd
     zoom: {{zoom-level}}, //zoom level being pulled from CMS on build
   {{/map-settings}}
     maxZoom: 17,
-    minZoom: 5.77
+    minZoom: 5.77,
+    attributionControl: false //No Attribution Control icon
     });
+
+    // Minimal Attribution Control icon
+    //map.addControl( new mapboxgl.AttributionControl({compact: true }));
 
 // Enables fullscreen mode (uncomment the 2 lines below to re-enable)
   //map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
@@ -25,7 +29,15 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     var link = document.createElement('a');
     link.href = '#';
     link.className = 'active';
-    link.textContent = id;
+    
+    var img = new Image();
+    img.setAttribute("height", "20px");
+    img.setAttribute("width", "20px");
+    img.src = "{{root}}assets/img/" + id + ".png";
+    link.appendChild(img);
+    var id_div = document.createElement("div");
+    id_div.textContent = id;
+    link.append(id_div);    
 
     link.onclick = function (e) {
         var clickedLayer = this.textContent;
@@ -33,7 +45,6 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
         e.stopPropagation();
 
         var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
         if (visibility === 'visible') {
             map.setLayoutProperty(clickedLayer, 'visibility', 'none');
             this.className = '';
@@ -41,11 +52,19 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
             this.className = 'active';
             map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
         }
+        this.childNodes[0].classList.toggle("greyscale");
     };
 
     var layers = document.getElementById('menu');
     layers.appendChild(link);
 }
+
+// This sections toggles map options menu
+
+document.getElementById('mapmenu').onclick = function () {
+    document.getElementById('menu').classList.toggle("showlayers");
+    document.getElementById('mapmenu').classList.toggle("mv");
+};
 
 // This sections activates the popup description box
 

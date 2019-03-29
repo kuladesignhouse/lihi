@@ -1,25 +1,39 @@
-<article class="cell medium-5 cell-block-y location-info-container">
+      <article class="cell medium-5 cell-block-y location-info-container">
         <h1 class="location">{{title}}</h1>
         <p class="location-overview">{{location-overview-paragraph}}</p>
-        {{#datwrap}}
-          {{#each buyable-image}}
-            <div class="location-article-img">
-              <img class="location-img" src="{{buy-image}}" alt="">
-              <div class="location-img-dropdown grid-x">
-                <div class="cell small-12 medium-8">
-                  <p class="location-img-description">{{img-caption}}</p>
-                </div>
-                <div class="buy-btn-container">
-                  {{> buy-btn}}
+        <div id="datwrap">
+        {{#each body-content}}
+          {{#ifequal type "buyable-img-object"}}
+          <div class="location-article-img">
+            <img class="location-img" src="{{this.buy-image}}" alt="{{this.img-alt}}">
+            <div class="location-img-dropdown">
+              <p class="location-img-description">{{this.img-caption}}</p>
+              <div class="btn-wrap">
+                <p>Wouldn't this look great on your wall?</p>
+                <div id="buy-btn-container">
+                  {{> buy-btn-dev btn-id=img-label shop-id=shop-id}}
                 </div>
               </div>
             </div>
-          {{/each}}
-          {{#each paragraph}}
-          <p>{{content-paragraph}}</p>
-          {{/each}}
-        {{/datwrap}}
+          </div>
+          {{/ifequal}}
+          {{#ifequal type "par-only"}}
+          <p>{{this.content-paragraph}}</p>
+          {{/ifequal}}
+        {{/each}}
+        </div>
         {{> body}}
+        <div class="travel-tip-container">
+          <h3 class="location-sub h-highlight">How to get there:</h3>
+          <img class="location-highlight-icon" src="{{root}}assets/img/how-to-get-there.png" alt="map icon">
+          <p class="p-highlight">A number of boats take tourists to and from Molokini daily, usually departing from Maalaea Harbor. Kayak tours are also available but can be fairly arduous, so being physically fit is a must.</p>
+          <h3 class="location-sub h-highlight">Best time to go:</h3>
+          <img class="location-highlight-icon" src="{{root}}assets/img/best-time.png" alt="icon of calander and clock">
+          <p class="p-highlight">Between the months of December and April, you will likely hear the songs of Humbpack Whale while snorkeling, and may even run into pods of dolphins and whales on your way out to the crater. It is better to go when winds are calm as water clarity is better and there is less current. For more information on current and forecasted weather check our <a class="plink" href="#">weather page</a>.</p>
+          <h3 class="location-sub travel-tip">Travel Tips:</h3>
+          <p class="tip">Sunscreen is a must, but please be sure to use Sunscreen that is <a href="" class="plink">reef safe</a>. Hawaii is soon to pass a bill requiring sunscreens to be reef safe, but until then it is important especially at locations like Molokini to do what one can to protect these fragile environments.</p>
+          <p class="tip">Bring an underwater camera, and purchase Melatonin or nausea wrist bands if prone to seasickness.</p>
+        </div>
       </article>
     </div>
   </div>
