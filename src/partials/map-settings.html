@@ -8,8 +8,12 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd
     zoom: {{zoom-level}}, //zoom level being pulled from CMS on build
   {{/map-settings}}
     maxZoom: 17,
-    minZoom: 5.77
+    minZoom: 5.77,
+    attributionControl: false //No Attribution Control icon
     });
+
+    // Minimal Attribution Control icon
+    //map.addControl( new mapboxgl.AttributionControl({compact: true }));
 
 // Enables fullscreen mode (uncomment the 2 lines below to re-enable)
   //map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
