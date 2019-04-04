@@ -43,7 +43,7 @@ svg#mapmenu.mv {
 #menu {
   background: #fff;
   position: absolute;
-  //display: none;
+  display: none;
   z-index: 1;
   top: 18px;
   right: 10px;
@@ -54,14 +54,14 @@ svg#mapmenu.mv {
   border: 1px solid rgba(0,0,0,0.4);
   font-family: 'Open Sans', sans-serif;
   @include md {
-    //display: block;
+    display: block;
     top: 20px;
     opacity: 1;
   }
 }
 
 #menu.showlayers {
-  //display: block;
+  display: block;
   opacity: 1;
   transition: opacity 300ms ease-in;
 }
