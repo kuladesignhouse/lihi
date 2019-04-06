@@ -139,6 +139,7 @@ header {
         @include lg {
           height: 790px;
           background-image: url(../img/home-header-bg.jpg);
+          background-size: cover;
         }
 }
 
