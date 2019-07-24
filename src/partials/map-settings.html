@@ -1,4 +1,6 @@
 <script>
+var maxBounds = [[-172.573695, 11.287183], [-143.894929, 29.929583]]; //SW corner, NE corner
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd3A4ajRzZWhxbmkifQ.YGpcRNhIqZtH3Q71a-UVKw';
     var map = new mapboxgl.Map({
       container: 'map',
@@ -8,8 +10,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd
     zoom: {{zoom-level}}, //zoom level being pulled from CMS on build
   {{/map-settings}}
     maxZoom: 17,
-    minZoom: 5.77,
-    attributionControl: false //No Attribution Control icon
+    minZoom: 5.25, 
+    attributionControl: false, //No Attribution Control icon
+    maxBounds: maxBounds //Max Boundary to prevent panning
     });
 
     // Minimal Attribution Control icon
@@ -67,65 +70,46 @@ document.getElementById('mapmenu').onclick = function () {
 };
 
 // This sections activates the popup description box
-
-    map.on('click', function(e) {
+map.on('click', function(e) {
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['beaches', 'snorkeling', 'sights'] // add the name of the layers
+    layers: toggleableLayerIds // add the name of the layers
   });
-
+  
   if (!features.length) {
     return;
   }
-
+  
   var feature = features[0];
-
+  
   var popup = new mapboxgl.Popup({ offset: [0, -15] })
     .setLngLat(feature.geometry.coordinates)
     .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
     .setLngLat(feature.geometry.coordinates)
     .addTo(map);
 
-// Center the map on the coordinates of any clicked symbol from the layer.
-  map.on('click', 'beaches', function (e) {
-        map.flyTo({center: e.features[0].geometry.coordinates});
-    });
+  //Iterate layer values
+  for (var i = 0; i < toggleableLayerIds.length; i++) {
 
-  map.on('click', 'snorkeling', function (e) {
-        map.flyTo({center: e.features[0].geometry.coordinates});
-    });
-
-  map.on('click', 'sights', function (e) {
-          map.flyTo({center: e.features[0].geometry.coordinates});
+    // Center the map on the coordinates of any clicked symbol from the layer.
+    map.on('click', toggleableLayerIds[i], function(e) {
+      map.flyTo({
+        center: e.features[0].geometry.coordinates
       });
-
-// Change the cursor to a pointer when the it enters a feature in the layer.
-  map.on('mouseenter', 'beaches', function () {
-        map.getCanvas().style.cursor = 'pointer';
     });
 
-  map.on('mouseenter', 'snorkeling', function () {
-        map.getCanvas().style.cursor = 'pointer';
+    // Change the cursor to a pointer when the it enters a feature in the layer.
+    map.on('mouseenter', toggleableLayerIds[i], function() {
+      map.getCanvas().style.cursor = 'pointer';
     });
 
-  map.on('mouseenter', 'sights', function () {
-        map.getCanvas().style.cursor = 'pointer';
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', toggleableLayerIds[i], function() {
+      map.getCanvas().style.cursor = '';
     });
 
-// Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'beaches', function () {
-        map.getCanvas().style.cursor = '';
-    });
-
-  map.on('mouseleave', 'snorkeling', function () {
-        map.getCanvas().style.cursor = '';
-    });
-
-  map.on('mouseleave', 'sights', function () {
-        map.getCanvas().style.cursor = '';
-    });
+  }
 
 });
-
 </script>
 
 <!-- This is supposed to force compact but doesn't seem to work
