@@ -1,3 +1,5 @@
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css' type='text/css' />
 <script>
 var maxBounds = [[-172.573695, 11.287183], [-143.894929, 29.929583]]; //SW corner, NE corner
 
@@ -83,7 +85,7 @@ map.on('click', function(e) {
   
   var popup = new mapboxgl.Popup({ offset: [0, -15] })
     .setLngLat(feature.geometry.coordinates)
-    .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
+    .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>' + '<a class="get-directions" data-coor="' + feature.geometry.coordinates +'">Get Directions</a>')
     .setLngLat(feature.geometry.coordinates)
     .addTo(map);
 
@@ -109,6 +111,36 @@ map.on('click', function(e) {
 
   }
 
+});
+
+
+var directions = new MapboxDirections({
+  accessToken: mapboxgl.accessToken,
+  controls : {
+      profileSwitcher: false,
+  },
+});
+ 
+function onGeoSuccess(position) {
+  directions.setOrigin([position.coords.longitude, position.coords.latitude]);
+}
+
+function onGeoError(err) {
+  console.log(err.message);
+}
+
+map.on('load', () => { //wait for map to load
+  document.addEventListener('click',function(e){ //event handler for dynamically added elements
+    if(e.target && e.target.className=='get-directions'){
+      map.addControl(directions, 'top-left'); //add direction controls to map
+      directions.setDestination(e.target.dataset.coor); // set directions destination using coordinates from dataset
+      navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, { //get user geolocation
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      });
+    }
+  });
 });
 </script>
 
