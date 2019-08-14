@@ -149,9 +149,65 @@ svg#mapmenu.mv {
     pointer-events: auto;
 }
 
+//directions
 .get-directions{
     float: right;
 }
+div#suggest-contain {
+  position:absolute; 
+  top:10px;
+  left:0;
+  z-index:9999;
+  max-width: 300px;
+  width: 100%;
+}
+input[type="text"]#set-origin {
+  box-shadow: 0 1px 0 0 #ddd;
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  width: 100%;
+  border: 0;
+  background-color: #fff;
+  height: 40px;
+  margin: 10px 10px 0px 10px;
+  color: rgba(0,0,0,.5);
+  padding: 10px 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: none;
+}
+input[type="text"]#set-origin.dsply {
+  display: block;
+}
+input[type="text"]#set-origin:focus {
+  outline: none;
+}
+div#results {
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: 10px;
+  background-color: #fff;
+}
+div#results > div {
+  box-sizing: border-box;
+  clear: both;
+  cursor: default;
+  display: block;
+  padding: 5px 10px;
+  height: 31px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+div.directions-control.directions-control-directions {
+  margin-top: 60px;
+}
+// end directions
 
 // Popup close button
 .mapboxgl-popup-close-button {
