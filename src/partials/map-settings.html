@@ -1,11 +1,12 @@
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js'></script>
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css' type='text/css' />
 <script>
-var text = '<div id="suggest-contain">' + 
+var html_str = '<div id="directions-contain">' + 
     '<input id="set-origin" type="text" placeholder="Choose a starting point">' + 
+    '<input id="set-dest" type="text" readonly="readonly" placeholder="Destination">' + 
     '<div id="results"></div>' + 
     '</div>';
-document.getElementById("map").insertAdjacentHTML("beforebegin", text);
+document.getElementById("map").insertAdjacentHTML("beforebegin", html_str);
 var maxBounds = [[-172.573695, 11.287183], [-143.894929, 29.929583]]; //SW corner, NE corner
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd3A4ajRzZWhxbmkifQ.YGpcRNhIqZtH3Q71a-UVKw';
@@ -108,7 +109,7 @@ map.on('click', function(e) {
   var feature = features[0];
 
   popup.setLngLat(feature.geometry.coordinates)
-    .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>' + '<a class="get-directions" data-coor="' + feature.geometry.coordinates +'">Get Directions</a>')
+    .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>' + '<a class="get-directions" data-coor="' + feature.geometry.coordinates +'" data-placename="' + feature.properties.title + '">Get Directions</a>')
     .addTo(map);
 
 });
@@ -122,21 +123,26 @@ var directions = new MapboxDirections({
   },
 });
 
+window.destination = {};
+
+var input = document.getElementById("set-origin");
+var results = document.getElementById("results");
+var directions_container = document.getElementById("directions-contain");
+
 function onGeoSuccess(position) {
   var origin = position.coords.longitude + "," + position.coords.latitude;
-  origin = "-156.35164,20.79398";
+  //origin = "-156.35164,20.79398"; // remove this and compare with test code!!!
   getDirections(origin);
 }
 
 function onGeoError(err) {
   console.log(err.message);
-  if (!input.className) {
-      input.className = "dsply";
+  if (!directions_container.className) {
+      directions_container.className = "dsply";
   }
   input.focus(); //if geolocation isn't enabled, focus on input#set-origin
 }
 
-window.destination = "";
 
 map.on('load', () => { //wait for map to load
   document.addEventListener('click',function(e){ //event handler for dynamically added elements
@@ -149,7 +155,11 @@ map.on('load', () => { //wait for map to load
         timeout: 5000,
         maximumAge: 0
       });
-      window.destination = e.target.dataset.coor;
+      document.getElementById("set-dest").value = e.target.dataset.placename;
+      window.destination = {
+        "coordinates" : e.target.dataset.coor,
+        "title" : e.target.dataset.placename
+      };
     }
   });
 
@@ -159,9 +169,6 @@ map.on('load', () => { //wait for map to load
 
 
 });
-
-var input = document.getElementById("set-origin");
-var results = document.getElementById("results");
 
 results.addEventListener('click', function(e) {
   if (e.target.className == "blarf") {
@@ -191,7 +198,7 @@ function debounce(func, wait, immediate) {
 
 function suggest(q) {
     var options = [];
-    options.push('proximity=' + window.destination);
+    //options.push('proximity=' + window.destination);
     options.push('access_token=' + mapboxgl.accessToken);
     var request = new XMLHttpRequest();
     request.abort();
@@ -241,7 +248,7 @@ function geoAddress(lngLat) {
         lngLat + ".json" +
         "?access_token=" +
         "pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g" +
-        "&autocomplete=true&types=address";
+        "&autocomplete=false&types=address&country=us";
 
     var req = new XMLHttpRequest();
     req.open('GET', url);
@@ -271,10 +278,11 @@ function getDirections(origin) {
   }
   
   directions.setOrigin(origin);
-  directions.setDestination(window.destination);
+  directions.setDestination(window.destination.coordinates);
+  document.getElementById("set-dest").value = window.destination.title;
   
-  if (!input.className) {
-      input.className = "dsply";
+  if (!directions_container.className) {
+      directions_container.className = "dsply";
   }
   
   if (input.value != origin) {
@@ -286,8 +294,8 @@ function getDirections(origin) {
 }
 
 function hideDirections() {
-  if (input.className) {
-    input.classList.remove("dsply");
+  if (directions_container.className) {
+    directions_container.classList.remove("dsply");
   }
   input.value="";
   if (map.getSource('directions')) {
