@@ -1,4 +1,12 @@
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css' type='text/css' />
 <script>
+var html_str = '<div id="directions-contain">' + 
+    '<input id="set-origin" type="text" placeholder="Choose a starting point">' + 
+    '<input id="set-dest" type="text" readonly="readonly" placeholder="Destination">' + 
+    '<div id="results"></div>' + 
+    '</div>';
+document.getElementById("map").insertAdjacentHTML("beforebegin", html_str);
 var maxBounds = [[-172.573695, 11.287183], [-143.894929, 29.929583]]; //SW corner, NE corner
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd3A4ajRzZWhxbmkifQ.YGpcRNhIqZtH3Q71a-UVKw';
@@ -27,47 +35,66 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZWdyYWluZ2VyIiwiYSI6ImNpeWYybzdiejAwMmkyd
 var toggleableLayerIds = [ 'beaches', 'snorkeling', 'sights' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
-    var id = toggleableLayerIds[i];
+  var id = toggleableLayerIds[i];
 
-    var link = document.createElement('a');
-    link.href = '#';
-    link.className = 'active';
+  var link = document.createElement('a');
+  link.href = '#';
+  link.className = 'active';
     
-    var img = new Image();
-    img.setAttribute("height", "20px");
-    img.setAttribute("width", "20px");
-    img.src = "{{root}}assets/img/" + id + ".png";
-    link.appendChild(img);
-    var id_div = document.createElement("div");
-    id_div.textContent = id;
-    link.append(id_div);    
+  var img = new Image();
+  img.setAttribute("height", "20px");
+  img.setAttribute("width", "20px");
+  img.src = "{{root}}assets/img/" + id + ".png";
+  link.appendChild(img);
+  var id_div = document.createElement("div");
+  id_div.textContent = id;
+  link.append(id_div);    
 
-    link.onclick = function (e) {
-        var clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
+  link.onclick = function (e) {
+      var clickedLayer = this.textContent;
+      e.preventDefault();
+      e.stopPropagation();
 
-        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-        if (visibility === 'visible') {
-            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-            this.className = '';
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        }
-        this.childNodes[0].classList.toggle("greyscale");
-    };
+      var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+      if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+      } else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+      }
+      this.childNodes[0].classList.toggle("greyscale");
+  };
 
-    var layers = document.getElementById('menu');
-    layers.appendChild(link);
+  var layers = document.getElementById('menu');
+  layers.appendChild(link);
+
+  // Center the map on the coordinates of any clicked symbol from the layer.
+  map.on('click', toggleableLayerIds[i], function(e) {
+    map.flyTo({
+      center: e.features[0].geometry.coordinates
+    });
+  });
+
+  // Change the cursor to a pointer when the it enters a feature in the layer.
+  map.on('mouseenter', toggleableLayerIds[i], function() {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  // Change it back to a pointer when it leaves.
+  map.on('mouseleave', toggleableLayerIds[i], function() {
+    map.getCanvas().style.cursor = '';
+  });    
+
 }
 
 // This sections toggles map options menu
-
 document.getElementById('mapmenu').onclick = function () {
     document.getElementById('menu').classList.toggle("showlayers");
     document.getElementById('mapmenu').classList.toggle("mv");
 };
+
+var popup = new mapboxgl.Popup({ offset: [0, -15] }); //store as a non-functio-scoped variable that can close programmatically
 
 // This sections activates the popup description box
 map.on('click', function(e) {
@@ -80,36 +107,204 @@ map.on('click', function(e) {
   }
   
   var feature = features[0];
-  
-  var popup = new mapboxgl.Popup({ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>')
-    .setLngLat(feature.geometry.coordinates)
+
+  popup.setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.title + '</h3><img src="{{root}}assets/img/map-popup/' + feature.properties.img + '">' + '<p class="popup-description">' + feature.properties.description + '</p><p><a href="' + feature.properties.link + '">Explore this location</a></p></p>' + feature.properties.ttcool + '</p>' + '<a class="get-directions" data-coor="' + feature.geometry.coordinates +'" data-placename="' + feature.properties.title + '">Get Directions</a>')
     .addTo(map);
 
-  //Iterate layer values
-  for (var i = 0; i < toggleableLayerIds.length; i++) {
+});
 
-    // Center the map on the coordinates of any clicked symbol from the layer.
-    map.on('click', toggleableLayerIds[i], function(e) {
-      map.flyTo({
-        center: e.features[0].geometry.coordinates
-      });
-    });
+var directions = new MapboxDirections({
+  accessToken: mapboxgl.accessToken,
+  interactive: false,
+  controls: {
+      profileSwitcher: false,
+      inputs: false,
+  },
+});
 
-    // Change the cursor to a pointer when the it enters a feature in the layer.
-    map.on('mouseenter', toggleableLayerIds[i], function() {
-      map.getCanvas().style.cursor = 'pointer';
-    });
+window.destination = {};
 
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', toggleableLayerIds[i], function() {
-      map.getCanvas().style.cursor = '';
-    });
+var input = document.getElementById("set-origin");
+var results = document.getElementById("results");
+var directions_container = document.getElementById("directions-contain");
 
+function onGeoSuccess(position) {
+  var origin = position.coords.longitude + "," + position.coords.latitude;
+  //origin = "-156.35164,20.79398"; // remove this and compare with test code!!!
+  getDirections(origin);
+}
+
+function onGeoError(err) {
+  console.log(err.message);
+  if (!directions_container.className) {
+      directions_container.className = "dsply";
   }
+  input.focus(); //if geolocation isn't enabled, focus on input#set-origin
+}
+
+
+map.on('load', () => { //wait for map to load
+  document.addEventListener('click',function(e){ //event handler for dynamically added elements
+    if(e.target && e.target.className=='get-directions'){
+      if (popup.isOpen()) {
+        popup.remove(); //hide feature popup
+      }
+      navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, { //get user geolocation
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      });
+      document.getElementById("set-dest").value = e.target.dataset.placename;
+      window.destination = {
+        "coordinates" : e.target.dataset.coor,
+        "title" : e.target.dataset.placename
+      };
+    }
+  });
+
+  map.on('click', function(e) {
+    hideDirections();
+  });
+
 
 });
+
+results.addEventListener('click', function(e) {
+  if (e.target.className == "blarf") {
+      input.value = e.target.textContent;
+      results.innerHTML = "";
+      if (e.target.textContent) {
+        getDirections(e.target.textContent);   
+      }
+  }
+});
+
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+
+function suggest(q) {
+    var options = [];
+    //options.push('proximity=' + window.destination);
+    options.push('access_token=' + mapboxgl.accessToken);
+    var request = new XMLHttpRequest();
+    request.abort();
+    results.innerHTML = "";
+    var api_url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
+    request.open('GET', api_url + encodeURIComponent(q.trim()) + '.json?' + options.join('&'), true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        var data = JSON.parse(request.responseText);
+        if (data.features.length) {
+          for (var i = 0; i < data.features.length; i++){
+            var result_elm = document.createElement('div');
+            result_elm.className = "blarf";
+            result_elm.textContent = data.features[i].place_name;
+            results.appendChild(result_elm);
+          }
+        }
+      } else {
+        console.log( JSON.parse(request.responseText).message );
+        results.innerHTML = "";
+      }
+    };
+
+    request.onerror = function() {
+        console.log( JSON.parse(request.responseText).message );
+    };
+    request.send();
+};
+
+input.addEventListener('keydown', debounce(function(e) {
+  // TAB, ESC, LEFT, RIGHT, UP, DOWN
+  if (e.metaKey || [9, 27, 37, 39, 38, 40].indexOf(e.keyCode) !== -1) return;
+
+  if (e.metaKey || e.keyCode == 13 ) { //handle ENTER
+    return;
+  }
+
+  if (e.target.value) {
+    suggest(e.target.value);      
+  } 
+}.bind(this)), 200);
+
+
+function geoAddress(lngLat) {
+  return new Promise(function(resolve, reject) {
+    var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        lngLat + ".json" +
+        "?access_token=" +
+        "pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g" +
+        "&autocomplete=false&types=address&country=us";
+
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+    req.setRequestHeader("Content-type", "application/json; charset=utf-8");
+
+    req.onload = function() {
+      if (req.status == 200) {
+        resolve(req.response);
+      }
+      else {
+        reject(Error(req.statusText));
+      }
+    };
+
+    req.onerror = function() {
+      reject(Error("Network Error"));
+    };
+
+    req.send();
+  });
+}
+
+function getDirections(origin) {
+  
+  if (!map.getSource('directions')) {
+      map.addControl(directions, 'top-left');
+  }
+  
+  directions.setOrigin(origin);
+  directions.setDestination(window.destination.coordinates);
+  document.getElementById("set-dest").value = window.destination.title;
+  
+  if (!directions_container.className) {
+      directions_container.className = "dsply";
+  }
+  
+  if (input.value != origin) {
+    geoAddress(origin).then(JSON.parse).then(function(response) {
+      input.value = response.features[0].place_name;      
+    })
+  }
+
+}
+
+function hideDirections() {
+  if (directions_container.className) {
+    directions_container.classList.remove("dsply");
+  }
+  input.value="";
+  if (map.getSource('directions')) {
+    directions.removeRoutes();
+    map.removeControl(directions);
+  }
+}
+
+
 </script>
 
 <!-- This is supposed to force compact but doesn't seem to work
