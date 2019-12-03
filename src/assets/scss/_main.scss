@@ -139,21 +139,13 @@ header {
         @include lg {
           height: 790px;
           background-image: url(../img/home-header-bg.jpg);
-          background-size: cover;
-          max-width: 100%;
         }
 }
 
 img.logo {
   float: left;
-  width: 190px;
+  width: 250px;
 
-    @include custom(348) {
-      width: 220px;
-    } 
-    @include custom(380) {
-      width: 250px;
-    }
     @include md {
       padding-top: 20px;
     }
@@ -311,7 +303,7 @@ img.logo {
 // Styles for Hero Header Nav
 nav {
   position: absolute;
-  margin: 60px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div //top margin for mobile to move options nav up
+  margin: 70px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div
   padding:0;
   height: auto;
   width: 100%;
@@ -320,7 +312,6 @@ nav {
   box-shadow: rgba(0, 0, 0, .4) 0 5px 4px 0;
 
     @include md {
-      margin: 70px 0 0 -20px; // -20px fixes for the padding since <nav> is inside the .nav-bar div
       position: static;
       background: none;
       box-shadow: none;
