@@ -1,24 +1,44 @@
-<article class="cell medium-5 cell-block-y location-info-container">
+      <article class="cell medium-5 cell-block-y location-info-container">
         <h1 class="location">{{title}}</h1>
         <p class="location-overview">{{location-overview-paragraph}}</p>
-        {{#datwrap}}
-          {{#each buyable-image}}
-            <div class="location-article-img">
-              <img class="location-img" src="{{buy-image}}" alt="">
-              <div class="location-img-dropdown grid-x">
-                <div class="cell small-12 medium-8">
-                  <p class="location-img-description">{{img-caption}}</p>
-                </div>
-                <div class="buy-btn-container">
-                  {{> buy-btn}}
-                </div>
-              </div>
+        {{#each body-content}}
+          
+          {{#if buy-image}}
+        <div class="location-article-img">
+          <img class="location-img" data-open="buybtn{{btn-id}}" src="{{buy-image}}" alt="{{img-alt}}">
+          <div class="location-img-dropdown">
+            <p class="location-img-description">{{img-caption}}</p>
+            <div class="btn-wrap">
+              <p>Wouldn't this look great on your wall?</p>
+              <div id="buy-btn-container">{{> buy-btn id=btn-id shop-id=shop-id }}</div>
             </div>
-          {{/each}}
-          {{#each paragraph}}
-          <p>{{content-paragraph}}</p>
-          {{/each}}
-        {{/datwrap}}
+          </div>
+        </div>   
+          {{/if}}
+          
+          {{#if content-paragraph}}
+        <p>{{content-paragraph}}</p>
+          {{/if}}
+
+          {{#if content-how}}
+        <div class="travel-tip-container">
+          <h3 class="location-sub h-highlight">How to get there:</h3>
+          <img class="location-highlight-icon" src="/assets/img/how-to-get-there.png" alt="map icon">
+          <p class="p-highlight">{{content-how}}</p>
+          <h3 class="location-sub h-highlight">Best time to go:</h3>
+          <img class="location-highlight-icon" src="/assets/img/best-time.png" alt="icon of calander and clock">
+          <p class="p-highlight">{{content-when}}</p>
+            {{#if content-how}}
+          <h3 class="location-sub travel-tip">Travel Tips:</h3>
+              {{#each travel-tips}}
+          <p class="tip">{{content-tip}}</p>
+              {{/each}}
+            {{/if}}
+        </div>
+          {{/if}}
+
+        {{/each}}
+          
         {{> body}}
       </article>
     </div>
