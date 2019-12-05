@@ -58,8 +58,8 @@ collections:
             name: "tips-when-how"
             widget: "object"
             fields:
-              - { label: "How to Get There", name: "content-how", widget: "text" }
-              - { label: "When to Go", name: "content-when", widget: "text" }
+              - { label: "How to Get There", name: "content-how", widget: "markdown" }
+              - { label: "When to Go", name: "content-when", widget: "markdown" }
               - label: "Travel Tips"
                 name: "travel-tips"
                 widget: list
