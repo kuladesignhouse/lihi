@@ -46,8 +46,7 @@ collections:
               - { label: "Image", name: "buy-image", widget: "image" }
               - { label: "Image Caption", name: "img-caption", widget: "text" }
               - { label: "Shopify ID", name: "shop-id", widget: "string" }
-              - { label: "Image-Label", hint: "Must be unique to other images on this page", name: "img-label", widget: "string" }
-              - { label: "Button ID", name: "btn-id", widget: "string" }
+              - { label: "Button ID", name: "btn-id", hint: "Must be unique to other images on this page", widget: "string" }
               - { label: "Alternate Text", name: "img-alt", widget: "text" }
           - label: "Paragraph"
             name: "par-only"
