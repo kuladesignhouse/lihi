@@ -54,10 +54,15 @@ collections:
             widget: "object"
             fields:
               - { label: "Paragraph", name: "content-paragraph", widget: "text" }
-          - label: "Tips"
-            name: "tips"
+          - label: "Tips, When and How to Go"
+            name: "tips-when-how"
             widget: "object"
             fields:
               - { label: "How to Get There", name: "content-how", widget: "text" }
               - { label: "When to Go", name: "content-when", widget: "text" }
-              - { label: "Travel Tips", name: "content-tips", widget: "text" }
+              - label: "Travel Tips"
+                name: "travel-tips"
+                widget: list
+                fields:
+                  - { label: "Travel Tip Content", name: "content-tip", widget: "markdown"}
+

@@ -19,22 +19,26 @@
           {{#if content-paragraph}}
         <p>{{content-paragraph}}</p>
           {{/if}}
-     
-        {{/each}}
 
-          {{#if tips}}
+          {{#if content-how}}
         <div class="travel-tip-container">
           <h3 class="location-sub h-highlight">How to get there:</h3>
-          <img class="location-highlight-icon" src="{{root}}assets/img/how-to-get-there.png" alt="map icon">
+          <img class="location-highlight-icon" src="/assets/img/how-to-get-there.png" alt="map icon">
           <p class="p-highlight">{{content-how}}</p>
           <h3 class="location-sub h-highlight">Best time to go:</h3>
-          <img class="location-highlight-icon" src="{{root}}assets/img/best-time.png" alt="icon of calander and clock">
+          <img class="location-highlight-icon" src="/assets/img/best-time.png" alt="icon of calander and clock">
           <p class="p-highlight">{{content-when}}</p>
+            {{#if content-how}}
           <h3 class="location-sub travel-tip">Travel Tips:</h3>
-          <p class="tip">Sunscreen is a must, but please be sure to use Sunscreen that is <a href="" class="plink">reef safe</a>. Hawaii is soon to pass a bill requiring sunscreens to be reef safe, but until then it is important especially at locations like Molokini to do what one can to protect these fragile environments.</p>
-          <p class="tip">Bring an underwater camera, and purchase Melatonin or nausea wrist bands if prone to seasickness.</p>
+              {{#each travel-tips}}
+          <p class="tip">{{content-tip}}</p>
+              {{/each}}
+            {{/if}}
         </div>
-          {{\if}}
+          {{/if}}
+
+        {{/each}}
+          
         {{> body}}
       </article>
     </div>
