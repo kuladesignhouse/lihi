@@ -20,22 +20,28 @@
         <p>{{content-paragraph}}</p>
           {{/if}}
 
-          {{#if content-how}}
+
+          {{#ifequal type 'tips-when-how'}}
         <div class="travel-tip-container">
+            {{#if content-how}}
           <h3 class="location-sub h-highlight">How to get there:</h3>
           <img class="location-highlight-icon" src="/assets/img/how-to-get-there.png" alt="map icon">
-          <p class="p-highlight">{{content-how}}</p>
+          <p class="p-highlight">{{#markdown}}{{content-how}}{{/markdown}}</p>
+            {{/if}}
+            {{#if content-when}}
           <h3 class="location-sub h-highlight">Best time to go:</h3>
           <img class="location-highlight-icon" src="/assets/img/best-time.png" alt="icon of calander and clock">
-          <p class="p-highlight">{{content-when}}</p>
-            {{#if content-how}}
+          <p class="p-highlight">{{#markdown}}{{content-when}}{{/markdown}}</p>
+            {{/if}}
+
+            {{#if travel-tips}}
           <h3 class="location-sub travel-tip">Travel Tips:</h3>
               {{#each travel-tips}}
-          <p class="tip">{{content-tip}}</p>
+          {{#markdown}}<p class="tip">{{content-tip}}</p>{{/markdown}}
               {{/each}}
             {{/if}}
         </div>
-          {{/if}}
+          {{/ifequal}}
 
         {{/each}}
           
