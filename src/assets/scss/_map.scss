@@ -111,6 +111,51 @@ svg#mapmenu.mv {
   filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
 }
 
+// Styles for expanding / retracting map
+#retract-map {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  pointer-events: none;
+  @include md {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+}
+#retract-map svg {
+  width: 25px;
+  height: auto;
+  cursor: pointer;
+  pointer-events: all;
+}
+#retract-map svg path.bg {
+  fill: rgba(255,255,255,0.5);
+}
+#retract-map svg path.cubes {
+  fill: none;
+  stroke:rgba(0,0,0,0.4);
+  stroke-width:1.5625;
+  stroke-linejoin:round;
+  stroke-miterlimit:18.75;
+}
+#retract-map svg:hover path.bg {
+  fill: rgba(255,255,255,0.75);
+}
+#retract-map svg:hover path.cubes {
+  fill: rgba(0,0,0,0.4);
+}
+#map-canvas-container.is-retracted {
+  @include md {
+    max-width: 30%;
+  }
+}
+
 #map {
   width: 100vw;
   height: 100%;

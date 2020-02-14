@@ -90,8 +90,13 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 
 // This sections toggles map options menu
 document.getElementById('mapmenu').onclick = function () {
-    document.getElementById('menu').classList.toggle("showlayers");
-    document.getElementById('mapmenu').classList.toggle("mv");
+  document.getElementById('menu').classList.toggle("showlayers");
+  document.getElementById('mapmenu').classList.toggle("mv");
+};
+
+// retract / expand map
+document.getElementById('retract-map').onclick = function (e) {
+  document.getElementById('map-canvas-container').classList.toggle("is-retracted");
 };
 
 var popup = new mapboxgl.Popup({ offset: [0, -15] }); //store as a non-functio-scoped variable that can close programmatically
