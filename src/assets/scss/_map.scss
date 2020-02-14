@@ -150,6 +150,14 @@ svg#mapmenu.mv {
 #retract-map svg:hover path.cubes {
   fill: rgba(0,0,0,0.4);
 }
+#map-canvas-container {
+  -webkit-transition: max-width 1s ease;  
+  -moz-transition: max-width 1s ease;  
+  -o-transition: max-width 1s ease;  
+  -ms-transition: max-width 1s ease;  
+  transition: max-width 1s ease;
+  max-width: 100%;
+}
 #map-canvas-container.is-retracted {
   @include md {
     max-width: 30%;
